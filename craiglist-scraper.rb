@@ -87,11 +87,14 @@ class Bot
 	  #puts job.to_html 
           job.search("a") do |link|
    	    
+	   
 	    #if the link is relative 
 	    if link['href'] !~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix  		 
-            	link['href'] = city_url + link['href']
+		 #fix the problem with the '/' at the end of the city_url
+		link['href'] = city_url.chop + link['href'] 
+		# puts link['href']+"<br>"
 	    end	
-	    #puts link['href']+"<br>"
+	    
             link['target'] = "_blank"
 	    #puts job.inner_text	 
           end
@@ -118,7 +121,7 @@ class Bot
 
 end
 
-b=Bot.new("dc","jjj","java")
+b=Bot.new("ny","jjj","java")
 b.find_all
 b.sort!
 b.output
